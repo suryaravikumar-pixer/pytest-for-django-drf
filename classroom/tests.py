@@ -21,7 +21,8 @@ class TestStudentModel(TestCase):
         a = 1
         b = 2
         c = a+b
-        self.assertEqual(c, 3)
+        
+        assert c == 3
 
     def test_student_can_be_created(self):
         student1 = Student.objects.create(
@@ -30,7 +31,7 @@ class TestStudentModel(TestCase):
         student1 = mixer.blend(Student, first_name="Tom")
 
         student_result = Student.objects.last()#getting the last student
-        self.assertEqual(student_result.first_name, "Tom")
+        assert student_result.first_name == "Tom"
     
     def test_str_result(self):
         # student1 = Student.objects.create(
@@ -40,7 +41,7 @@ class TestStudentModel(TestCase):
         student1 = mixer.blend(Student, first_name="Tom")
 
         student_result = Student.objects.last()#getting the last student
-        self.assertEqual(str(student_result), "Tom")
+        assert str(student_result) == "Tom"
 
     
     def test_grade_fail(self):
@@ -51,7 +52,7 @@ class TestStudentModel(TestCase):
         student1 = mixer.blend(Student, average_score=10)
 
         student_result = Student.objects.last()#getting the last student
-        self.assertEqual(student_result.get_grade(), "Fail")
+        assert student_result.get_grade() == "Fail"
    
     def test_grade_pass(self):
         # student1 = Student.objects.create(
@@ -61,7 +62,7 @@ class TestStudentModel(TestCase):
         student1 = mixer.blend(Student, average_score=60)
 
         student_result = Student.objects.last()#getting the last student
-        self.assertEqual(student_result.get_grade(), "Pass")
+        assert student_result.get_grade() == "Pass"
     def test_grade_excellent(self):
         # student1 = Student.objects.create(
         #     first_name="Tom", last_name = "Mobya", admission_number = 1234, average_score=89
@@ -70,5 +71,5 @@ class TestStudentModel(TestCase):
         student1 = mixer.blend(Student, average_score=88)
 
         student_result = Student.objects.last()#getting the last student
-        self.assertEqual(student_result.get_grade(), "Out standing")
+        assert student_result.get_grade() == "Out standing"
 
