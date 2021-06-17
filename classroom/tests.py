@@ -1,9 +1,12 @@
 from django.test import TestCase
-from .models import Student
+from .models import Student, Classroom
 from mixer.backend.django import mixer
+import pytest
 
+pytestmark = pytest.mark.django_db #pytest not save the test data, just hold inthe memory
 
 class TestStudentModel(TestCase):
+    
     """ 
     setup up got new users
     getting access tokens/ logged in users
@@ -73,3 +76,18 @@ class TestStudentModel(TestCase):
         student_result = Student.objects.last()#getting the last student
         assert student_result.get_grade() == "Out standing"
 
+    def test_grade_error(self):
+        student1 = mixer.blend(Student, average_score=144)
+
+        student_result = Student.objects.last()#getting the last student
+        assert student_result.get_grade() == "Error"
+
+
+class TestClassroomModel:
+    def test_classroom_create(self):
+        classroom = mixer.blend(Classroom, name="cse")
+
+        classroom_result = Classroom.objects.last()#getting the last student
+        assert str(classroom_result) == "cse"
+
+    
